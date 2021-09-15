@@ -8,5 +8,20 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './styles/app.css';
 
-// start the Stimulus application
-import './bootstrap';
+import getNiceMessage from './get_nice-message';
+
+import $ from 'jquery';
+import 'bootstrap';
+
+// Uncomment if you have legacy code
+// global.$ = $;
+
+console.log(getNiceMessage(10));
+
+$('.dropdown-toggle').dropdown();
+$('.custom-file-input').on('change', function(event) {
+    var inputFile = event.currentTarget;
+    $(inputFile).parent()
+        .find('.custom-file-label')
+        .html(inputFile.files[0].name);
+});
