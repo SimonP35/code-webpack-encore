@@ -1,6 +1,30 @@
+import Dropzone from 'dropzone';
+import 'dropzone/dist/dropzone.css';
+import Sortable from 'sortablejs';
+// import autocomplete from './components/algolia-autocomplete';
+
 Dropzone.autoDiscover = false;
 
+import $ from 'jquery';
+
+// Dynamic import syntax with await keyword 
+// + yarn add regenerator-runtime --dev
+
+async function initializeAutocomplete($autoComplete){
+    const { default: autocomplete } = 
+        await import('./components/algolia-autocomplete');
+
+    autocomplete($autoComplete, 'users', 'email');
+}
+
 $(document).ready(function() {
+    const $autoComplete = $('.js-user-autocomplete');
+    if (!$autoComplete.is(':disabled')){
+        // start loading animation (because we have a promise under)
+        initializeAutocomplete($autoComplete);
+        // stop loading animation (while we have the answer)
+    }
+
     const $referenceList = $('.js-reference-list');
     if ($referenceList[0]) {
         var referenceList = new ReferenceList($('.js-reference-list'));
@@ -37,6 +61,8 @@ $(document).ready(function() {
 class ReferenceList
 {
     constructor($element) {
+        var stuff = new WeakSet([]);
+
         this.$element = $element;
         this.sortable = Sortable.create(this.$element[0], {
             handle: '.drag-handle',
