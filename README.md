@@ -8,4 +8,4 @@ Hi there! Inside this code download you'll find the following things:
 
 In each directory, you'll find more details about how to set up the project.
 But if you have any questions, just post a comment on the course page and
-ask!
+ask!# code-webpack-encore
